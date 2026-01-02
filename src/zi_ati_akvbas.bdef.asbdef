@@ -1,0 +1,84 @@
+managed;
+strict ( 2 );
+
+with draft;
+
+define behavior for ZI_ATI_AKVBAS //alias <alias_name>
+implementation in class zbp_i_ati_akvbas unique
+persistent table zati_aktv_baslik
+draft table zati_aktv_bas_d
+//lock master
+lock master total etag timestamp
+authorization master ( instance, global )
+early numbering
+etag master Lastchantime
+
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) Musteriid;
+  field ( mandatory ) Sorumlu, Sehir;
+  //field ( mandatory : create, readonly : update ) Sorumlu, Sehir;
+  //field ( readonly : update ) Musteriid;
+  association _akvkal { create; with draft;}
+
+  determination setTimeLog on save { create; update; }
+  determination onayDurum on modify { create; field Toptutar; }
+  validation mandatory_sorumlu on save { create; update; field Sorumlu; }
+
+  factory action copyActivity [1];
+  action ( features : instance ) acceptAct result [1] $self;
+  action ( features : instance ) rejectAct result [1] $self;
+  action ( authorization : update ) calcPrice parameter ZA_ATI_ABSTRACT result [1] $self;
+
+  action ( features : instance, precheck ) editLine
+    parameter ZA_ATI_DEFAULT_ABSTRACT result [1] $self
+  { default function GetDefaultsForAbstract; }
+
+  side effects { field Toptutar affects field Onaydrm; }
+
+  static action uploadExcel parameter ZA_EXCEL_UPLOAD;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zati_aktv_baslik
+    {
+      musteriid    = Musteriid;
+      musteritnm   = Musteritnm;
+      sehir        = Sehir;
+      adres        = Adres;
+      sorumlu      = Sorumlu;
+      ticketsayisi = Ticketsayisi;
+      toplamsaat   = Toplamsaat;
+      onaydrm      = Onaydrm;
+      Toptutar     = toptutar;
+      Currency     = Currency;
+      uname        = Uname;
+      timestamp    = Timestamp;
+      aedat        = Aedat;
+      psotm        = Psotm;
+      lastchantime = Lastchantime;
+      attachment   = Attachment;
+      mimetype     = Mimetype;
+      filename     = Filename;
+    }
+}
+
+define behavior for ZI_ATI_AKVKAL //alias <alias_name>
+implementation in class zbp_i_ati_akvkal unique
+persistent table zati_aktv_kalem
+draft table zati_aktv_kal_d
+lock dependent by _akvbas
+authorization dependent by _akvbas
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Musteriid;
+  association _akvbas { with draft; }
+}
