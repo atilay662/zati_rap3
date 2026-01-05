@@ -33,6 +33,8 @@ CLASS lhc_zi_ati_custom_ce DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS precheck_editline FOR PRECHECK
       IMPORTING keys FOR ACTION zi_ati_custom_ce~editline.
+    METHODS uploadexcel FOR MODIFY
+      IMPORTING keys FOR ACTION zi_ati_custom_ce~uploadexcel.
 
 ENDCLASS.
 
@@ -165,6 +167,9 @@ CLASS lhc_zi_ati_custom_ce IMPLEMENTATION.
 *                        %param = ls_result ) ).
 
     " ENDIF.
+  ENDMETHOD.
+
+  METHOD uploadExcel.
   ENDMETHOD.
 
 ENDCLASS.

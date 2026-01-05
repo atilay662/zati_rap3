@@ -3,9 +3,25 @@
 define root custom entity ZI_ATI_CUSTOM_CE
  //with parameters parameter_name : parameter_type
 {
+
+  @UI.facet: [ { id: 'HeaderAct',
+                 purpose: #STANDARD,
+                 position: 1,
+                 label: 'Müşteri Bilgileri',
+                 type: #IDENTIFICATION_REFERENCE },
+               { id: 'ItemAct',
+                 purpose: #STANDARD,
+                 position: 2,
+                 label: 'Aktivite Detay',
+                 type: #LINEITEM_REFERENCE
+                // targetElement: '_akvkal' 
+                 } ]
+  @UI.identification: [ { position: 1, label: 'Müşteri Id' } ]
+  
   @UI.lineItem: [ { position: 1 },
                   { label: 'Müşteri Id' },
-                  { type: #FOR_ACTION, dataAction: 'editLine', label: 'Edit Line' }
+                  { type: #FOR_ACTION, dataAction: 'editLine', label: 'Edit Line' },
+                  { type: #FOR_ACTION, dataAction: 'uploadExcel', label: 'Upload Excel' }
                    ]
   key musteriid : zati_e_001 ;
   musteritnm    : abap.char(20);

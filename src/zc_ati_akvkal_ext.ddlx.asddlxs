@@ -17,8 +17,10 @@ annotate view ZC_ATI_AKVKAL with
     }
   ]
   
-  @UI.lineItem: [{ position: 1, label: 'Müşteri Id' }]
+  @UI.lineItem: [{ position: 1, label: 'Müşteri Id' },
+   { type: #FOR_ACTION, dataAction: 'uploadExcel', label: 'Upload Excel' }]
   @UI.identification: [{ position: 1, label: 'Müşteri Id' }]
+  
   Musteriid;
   
   @UI.lineItem: [{ position: 2, label: 'Aktivite Id' }]

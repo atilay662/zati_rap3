@@ -29,6 +29,6 @@ define behavior for ZC_ATI_AKVKAL //alias <alias_name>
 {
   use update;
   use delete;
-
+  //use action uploadExcel;
   use association _akvbas { with draft; }
 }
