@@ -86,14 +86,15 @@ CLASS lhc_zi_ati_akvbas IMPLEMENTATION.
     DATA(lt_entity) = entities.
     DATA lo_msg TYPE REF TO if_abap_behv_message.
 
-    DELETE lt_entity WHERE musteriid <> ''.
+    "DELETE lt_entity WHERE musteriid <> ''.
     SELECT MAX( musteriid ) FROM zati_aktv_baslik INTO @DATA(lv_maxmid).
 
     LOOP AT lt_entity INTO DATA(ls_entity).
       lv_maxmid += 1.
-      CONDENSE lv_maxmid NO-GAPS.
+      "CONDENSE lv_maxmid NO-GAPS.
       APPEND VALUE #( %cid      = ls_entity-%cid
                       "%key      = ls_entity-%key
+                      %is_draft = ls_entity-%is_draft
                       musteriid = lv_maxmid ) TO mapped-zi_ati_akvbas.
     ENDLOOP.
     IF sy-subrc NE 0.
@@ -391,10 +392,10 @@ CLASS lhc_zi_ati_akvbas IMPLEMENTATION.
              WITH VALUE #( ( %tky    = <lfs_head>-%tky
                              onaydrm = <lfs_head>-onaydrm ) ).
 
-      APPEND VALUE #( %tky = <lfs_head>-%tky
-                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-information
-                                                    text     = |Onay durum güncellendi| ) )
-             TO reported-zi_ati_akvbas.
+*      APPEND VALUE #( %tky = <lfs_head>-%tky
+*                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-information
+*                                                    text     = |Onay durum güncellendi| ) )
+*             TO reported-zi_ati_akvbas.
     ENDLOOP.
   ENDMETHOD.
 

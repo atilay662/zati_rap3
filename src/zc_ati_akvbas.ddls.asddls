@@ -38,3 +38,4 @@ define root view entity ZC_ATI_AKVBAS
       /* Associations */
       _akvkal : redirected to composition child ZC_ATI_AKVKAL
 }
+//where Musteriid = 1

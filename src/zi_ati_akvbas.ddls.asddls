@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Aktivite Başlık CDS'
 @Metadata.ignorePropagatedAnnotations: true
+
 define root view entity ZI_ATI_AKVBAS
   as select from zati_aktv_baslik
   composition [0..*] of ZI_ATI_AKVKAL as _akvkal

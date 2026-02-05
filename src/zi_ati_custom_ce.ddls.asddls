@@ -23,7 +23,7 @@ define root custom entity ZI_ATI_CUSTOM_CE
                   { type: #FOR_ACTION, dataAction: 'editLine', label: 'Edit Line' },
                   { type: #FOR_ACTION, dataAction: 'uploadExcel', label: 'Upload Excel' }
                    ]
-  key musteriid : zati_e_001 ;
+  key musteriid : zati_e_003 ;
   musteritnm    : abap.char(20);
   sehir         : abap.char(20);
   adres         : abap.sstring(70);
